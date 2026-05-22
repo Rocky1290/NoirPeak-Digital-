@@ -1,0 +1,633 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+  <title>NoirPeak Digital | Real Estate Tech & Automation</title>
+
+  <script src="https://cdn.tailwindcss.com"></script>
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
+
+  <style>
+
+    *{
+      margin:0;
+      padding:0;
+      box-sizing:border-box;
+    }
+
+    body{
+      font-family:'Inter',sans-serif;
+      background:#030712;
+      color:white;
+      overflow-x:hidden;
+    }
+
+    html{
+      scroll-behavior:smooth;
+    }
+
+    /* BACKGROUND */
+
+    .animated-bg{
+      position:fixed;
+      width:100%;
+      height:100%;
+      top:0;
+      left:0;
+      z-index:-2;
+      background:
+      radial-gradient(circle at top left, rgba(168,85,247,0.18), transparent 25%),
+      radial-gradient(circle at bottom right, rgba(34,211,238,0.15), transparent 30%),
+      linear-gradient(to bottom,#030712,#020617,#0f172a);
+    }
+
+    .grid-overlay{
+      position:fixed;
+      inset:0;
+      z-index:-1;
+
+      background-image:
+      linear-gradient(rgba(255,255,255,0.03) 1px, transparent 1px),
+      linear-gradient(90deg, rgba(255,255,255,0.03) 1px, transparent 1px);
+
+      background-size:45px 45px;
+      animation:gridMove 20s linear infinite;
+    }
+
+    @keyframes gridMove{
+      from{
+        transform:translateY(0);
+      }
+      to{
+        transform:translateY(45px);
+      }
+    }
+
+    /* GLASS EFFECT */
+
+    .glass{
+      background:rgba(15,23,42,0.72);
+      backdrop-filter:blur(16px);
+      border:1px solid rgba(255,255,255,0.08);
+    }
+
+    /* NEON BUTTON */
+
+    .neon-btn{
+      position:relative;
+      overflow:hidden;
+      background:linear-gradient(90deg,#06b6d4,#8b5cf6);
+      transition:0.4s ease;
+      box-shadow:
+      0 0 10px rgba(34,211,238,0.35),
+      0 0 25px rgba(139,92,246,0.25);
+    }
+
+    .neon-btn:hover{
+      transform:translateY(-4px) scale(1.02);
+
+      box-shadow:
+      0 0 20px rgba(34,211,238,0.5),
+      0 0 45px rgba(139,92,246,0.45);
+    }
+
+    /* CARD */
+
+    .card{
+      transition:0.4s ease;
+    }
+
+    .card:hover{
+      transform:translateY(-10px);
+
+      border-color:#22d3ee;
+
+      box-shadow:
+      0 0 25px rgba(34,211,238,0.2),
+      0 0 60px rgba(139,92,246,0.18);
+    }
+
+    /* TEXT */
+
+    .gradient-text{
+      background:linear-gradient(to right,#22d3ee,#a855f7);
+      -webkit-background-clip:text;
+      -webkit-text-fill-color:transparent;
+    }
+
+    /* FLOATING */
+
+    .floating{
+      animation:float 5s ease-in-out infinite;
+    }
+
+    @keyframes float{
+      0%{
+        transform:translateY(0px);
+      }
+      50%{
+        transform:translateY(-12px);
+      }
+      100%{
+        transform:translateY(0px);
+      }
+    }
+
+    /* FADE IN */
+
+    .fade-up{
+      animation:fadeUp 1s ease forwards;
+    }
+
+    @keyframes fadeUp{
+      from{
+        opacity:0;
+        transform:translateY(30px);
+      }
+      to{
+        opacity:1;
+        transform:translateY(0);
+      }
+    }
+
+  </style>
+
+</head>
+
+<body>
+
+<div class="animated-bg"></div>
+<div class="grid-overlay"></div>
+
+<!-- NAVBAR -->
+
+<header class="fixed top-0 w-full z-50 glass">
+
+  <div class="max-w-7xl mx-auto px-6 py-5 flex items-center justify-between">
+
+    <h1 class="text-2xl font-black tracking-tight">
+      NoirPeak <span class="text-cyan-400">Digital</span>
+    </h1>
+
+    <nav class="hidden md:flex gap-8 text-slate-300 font-medium">
+
+      <a href="#services" class="hover:text-cyan-400 transition">
+        Services
+      </a>
+
+      <a href="#portfolio" class="hover:text-cyan-400 transition">
+        Portfolio
+      </a>
+
+      <a href="#about" class="hover:text-cyan-400 transition">
+        About
+      </a>
+
+      <a href="#contact" class="hover:text-cyan-400 transition">
+        Contact
+      </a>
+
+    </nav>
+
+    <a href="https://wa.me/918013090038"
+       target="_blank"
+       class="neon-btn px-5 py-3 rounded-2xl font-semibold text-white">
+
+      Contact Me
+
+    </a>
+
+  </div>
+
+</header>
+
+<!-- HERO -->
+
+<section class="min-h-screen flex items-center px-6 pt-32">
+
+  <div class="max-w-7xl mx-auto grid lg:grid-cols-2 gap-20 items-center">
+
+    <!-- LEFT -->
+
+    <div class="fade-up">
+
+      <div class="inline-flex items-center px-4 py-2 rounded-full border border-cyan-400/30 bg-cyan-500/10 text-cyan-300 text-sm mb-8">
+        Real Estate Tech & Automation Specialist
+      </div>
+
+      <h1 class="text-6xl md:text-7xl font-black leading-tight mb-8">
+
+        Building
+        <span class="gradient-text">
+          Futuristic
+        </span>
+        Real Estate Websites.
+
+      </h1>
+
+      <p class="text-slate-400 text-lg leading-relaxed max-w-2xl mb-10">
+
+        NoirPeak Digital helps real estate businesses across the USA & Canada
+        create premium websites, AI-powered automation systems,
+        lead-generation funnels, and modern digital experiences.
+
+      </p>
+
+      <div class="flex flex-wrap gap-5">
+
+        <a href="#portfolio"
+           class="neon-btn px-8 py-4 rounded-2xl font-semibold text-white">
+
+          View Portfolio
+
+        </a>
+
+        <a href="https://wa.me/918013090038"
+           target="_blank"
+           class="border border-slate-700 hover:border-cyan-400 transition px-8 py-4 rounded-2xl font-semibold text-slate-200">
+
+          WhatsApp Me
+
+        </a>
+
+      </div>
+
+      <!-- TRUST -->
+
+      <div class="grid md:grid-cols-3 gap-6 mt-14">
+
+        <div class="glass rounded-2xl p-6 text-center card">
+
+          <h3 class="text-3xl font-black text-cyan-400 mb-2">
+            24h
+          </h3>
+
+          <p class="text-slate-400">
+            Fast Response
+          </p>
+
+        </div>
+
+        <div class="glass rounded-2xl p-6 text-center card">
+
+          <h3 class="text-3xl font-black text-purple-400 mb-2">
+            Remote
+          </h3>
+
+          <p class="text-slate-400">
+            Global Clients
+          </p>
+
+        </div>
+
+        <div class="glass rounded-2xl p-6 text-center card">
+
+          <h3 class="text-3xl font-black text-cyan-400 mb-2">
+            Modern
+          </h3>
+
+          <p class="text-slate-400">
+            AI Solutions
+          </p>
+
+        </div>
+
+      </div>
+
+    </div>
+
+    <!-- HERO IMAGE -->
+
+    <div class="relative floating">
+
+      <div class="absolute inset-0 bg-cyan-500/20 blur-3xl rounded-full"></div>
+
+      <img
+        src="https://images.unsplash.com/photo-1600585154526-990dced4db0d?q=80&w=1200&auto=format&fit=crop"
+        alt="Luxury Real Estate"
+        class="relative rounded-[2rem] border border-cyan-500/20 shadow-2xl w-full h-[550px] object-cover">
+
+    </div>
+
+  </div>
+
+</section>
+
+<!-- SERVICES -->
+
+<section id="services" class="py-24 px-6">
+
+  <div class="max-w-7xl mx-auto">
+
+    <div class="text-center mb-20 fade-up">
+
+      <p class="text-cyan-400 uppercase tracking-[0.3em] text-sm mb-4">
+        SERVICES
+      </p>
+
+      <h2 class="text-5xl font-black mb-6">
+        What I Build
+      </h2>
+
+      <p class="text-slate-400 text-lg max-w-3xl mx-auto">
+        Tech-driven digital systems for modern real estate businesses.
+      </p>
+
+    </div>
+
+    <div class="grid md:grid-cols-2 lg:grid-cols-4 gap-8">
+
+      <div class="glass rounded-[2rem] p-8 card">
+
+        <div class="text-4xl mb-6">🌐</div>
+
+        <h3 class="text-2xl font-bold mb-4">
+          Website Design
+        </h3>
+
+        <p class="text-slate-400">
+          Premium responsive websites with futuristic branding.
+        </p>
+
+      </div>
+
+      <div class="glass rounded-[2rem] p-8 card">
+
+        <div class="text-4xl mb-6">🏙️</div>
+
+        <h3 class="text-2xl font-bold mb-4">
+          Real Estate UI
+        </h3>
+
+        <p class="text-slate-400">
+          Property-focused interfaces built for trust and conversions.
+        </p>
+
+      </div>
+
+      <div class="glass rounded-[2rem] p-8 card">
+
+        <div class="text-4xl mb-6">🤖</div>
+
+        <h3 class="text-2xl font-bold mb-4">
+          CRM Automation
+        </h3>
+
+        <p class="text-slate-400">
+          AI workflows, lead systems, and automation tools.
+        </p>
+
+      </div>
+
+      <div class="glass rounded-[2rem] p-8 card">
+
+        <div class="text-4xl mb-6">📱</div>
+
+        <h3 class="text-2xl font-bold mb-4">
+          A2P Setup
+        </h3>
+
+        <p class="text-slate-400">
+          SMS compliance and messaging systems for US businesses.
+        </p>
+
+      </div>
+
+    </div>
+
+  </div>
+
+</section>
+
+<!-- PORTFOLIO -->
+
+<section id="portfolio" class="py-24 px-6">
+
+  <div class="max-w-7xl mx-auto">
+
+    <div class="text-center mb-20 fade-up">
+
+      <p class="text-cyan-400 uppercase tracking-[0.3em] text-sm mb-4">
+        PORTFOLIO
+      </p>
+
+      <h2 class="text-6xl font-black mb-6">
+        Featured Projects
+      </h2>
+
+      <p class="text-slate-400 text-xl max-w-3xl mx-auto">
+        High-performance digital systems for modern real estate companies.
+      </p>
+
+    </div>
+
+    <div class="grid lg:grid-cols-3 gap-8">
+
+      <!-- PALM -->
+
+      <div class="glass rounded-[2rem] p-8 card">
+
+        <h3 class="text-3xl font-bold mb-2">
+          Palm State Investments
+        </h3>
+
+        <p class="text-cyan-400 mb-6">
+          Real Estate Investment Company
+        </p>
+
+        <p class="text-slate-400 leading-relaxed mb-8">
+          Investor-focused real estate website designed for premium branding,
+          lead conversion, and modern online presence.
+        </p>
+
+        <a href="https://palmstateinvesments.netlify.app/"
+           target="_blank"
+           class="w-full flex justify-center items-center neon-btn rounded-2xl py-4 text-lg font-medium">
+
+          Visit Website →
+
+        </a>
+
+      </div>
+
+      <!-- INDIBOOTS -->
+
+      <div class="glass rounded-[2rem] p-8 card">
+
+        <h3 class="text-3xl font-bold mb-2">
+          Indiboots Property Services
+        </h3>
+
+        <p class="text-cyan-400 mb-6">
+          Property Management Solutions
+        </p>
+
+        <p class="text-slate-400 leading-relaxed mb-8">
+          Property inspections, lockbox installation,
+          renovation tracking, and property showing systems.
+        </p>
+
+        <a href="https://indiboots.com/"
+           target="_blank"
+           class="w-full flex justify-center items-center neon-btn rounded-2xl py-4 text-lg font-medium">
+
+          Visit Website →
+
+        </a>
+
+      </div>
+
+      <!-- ATD -->
+
+      <div class="glass rounded-[2rem] p-8 card">
+
+        <h3 class="text-3xl font-bold mb-2">
+          ATD Equity Partners
+        </h3>
+
+        <p class="text-purple-400 mb-6">
+          Real Estate Investment Company
+        </p>
+
+        <p class="text-slate-400 leading-relaxed mb-8">
+          Premium investment-focused platform with enterprise-level branding
+          and responsive UI.
+        </p>
+
+        <a href="https://atdequitypartners.com/"
+           target="_blank"
+           class="w-full flex justify-center items-center neon-btn rounded-2xl py-4 text-lg font-medium">
+
+          Visit Website →
+
+        </a>
+
+      </div>
+
+    </div>
+
+  </div>
+
+</section>
+
+<!-- ABOUT -->
+
+<section id="about" class="py-24 px-6">
+
+  <div class="max-w-6xl mx-auto grid lg:grid-cols-2 gap-16 items-center">
+
+    <!-- PROFILE -->
+
+    <div class="relative floating">
+
+      <div class="absolute inset-0 bg-purple-500/20 blur-3xl rounded-full"></div>
+
+      <img src="profile.jpg"
+           alt="Satyaki Ghosh"
+           class="relative rounded-[2rem] border border-cyan-500/20 shadow-2xl w-full max-w-md mx-auto object-cover">
+
+    </div>
+
+    <!-- CONTENT -->
+
+    <div class="fade-up">
+
+      <p class="text-cyan-400 uppercase tracking-[0.3em] text-sm mb-4">
+        ABOUT ME
+      </p>
+
+      <h2 class="text-5xl font-black mb-8">
+        Satyaki Ghosh
+      </h2>
+
+      <p class="text-slate-400 text-lg leading-relaxed mb-6">
+
+        I'm a freelance web designer and automation specialist based in Greater Noida, India,
+        helping real estate businesses across North America create modern digital systems.
+
+      </p>
+
+      <p class="text-slate-400 text-lg leading-relaxed mb-6">
+
+        My experience includes international client communication,
+        onboarding operations, HR coordination, and automation workflows.
+
+      </p>
+
+      <div class="glass rounded-2xl p-6">
+
+        <h4 class="text-xl font-bold mb-3 text-cyan-400">
+          Office Location
+        </h4>
+
+        <p class="text-slate-300 leading-relaxed">
+
+          JKG Palm Court,<br>
+          Sector 16C, Greater Noida,<br>
+          Noida, Uttar Pradesh - 201009
+
+        </p>
+
+      </div>
+
+    </div>
+
+  </div>
+
+</section>
+
+<!-- CONTACT -->
+
+<section id="contact" class="py-24 px-6">
+
+  <div class="max-w-4xl mx-auto glass rounded-[2rem] p-12 text-center">
+
+    <h2 class="text-5xl font-black mb-8">
+      Let’s Build Something Powerful.
+    </h2>
+
+    <p class="text-slate-400 text-lg mb-10 max-w-2xl mx-auto">
+      Looking for a premium real estate website or automation system? Let’s connect.
+    </p>
+
+    <div class="flex flex-wrap justify-center gap-5">
+
+      <a href="https://wa.me/918013090038"
+         target="_blank"
+         class="neon-btn px-8 py-4 rounded-2xl font-semibold text-white">
+
+        WhatsApp Me
+
+      </a>
+
+      <a href="mailto:noirpeakdigital@gmail.com"
+         class="border border-slate-700 hover:border-cyan-400 transition px-8 py-4 rounded-2xl font-semibold">
+
+        Email Me
+
+      </a>
+
+    </div>
+
+  </div>
+
+</section>
+
+<!-- FOOTER -->
+
+<footer class="border-t border-white/5 py-10 text-center text-slate-500">
+
+  © 2026 NoirPeak Digital • Tech-Driven Real Estate Solutions
+
+</footer>
+
+</body>
+</html>
