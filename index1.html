@@ -1,0 +1,860 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="description" content="NoirPeak Compliance Systems helps businesses and agencies review A2P readiness, SMS opt-in flows, consent language, and campaign content before submission." />
+  <meta name="theme-color" content="#05070b" />
+
+  <title>NoirPeak Compliance Systems | A2P Readiness & SMS Opt-In Compliance</title>
+
+  <script src="https://cdn.tailwindcss.com"></script>
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&family=Space+Grotesk:wght@500;600;700&display=swap" rel="stylesheet">
+
+  <style>
+    :root{
+      --bg:#05070b;
+      --panel:#0b1018;
+      --panel-2:#0f1621;
+      --line:rgba(255,255,255,.09);
+      --muted:#94a3b8;
+      --cyan:#67e8f9;
+      --cyan-2:#22d3ee;
+      --green:#86efac;
+    }
+
+    *{margin:0;padding:0;box-sizing:border-box}
+    html{scroll-behavior:smooth}
+    body{
+      font-family:'Inter',sans-serif;
+      background:var(--bg);
+      color:#f8fafc;
+      overflow-x:hidden;
+    }
+
+    h1,h2,h3,.brand{font-family:'Space Grotesk',sans-serif}
+
+    .site-bg{
+      position:fixed;
+      inset:0;
+      z-index:-3;
+      background:
+        radial-gradient(circle at 15% 10%,rgba(34,211,238,.10),transparent 28%),
+        radial-gradient(circle at 90% 35%,rgba(14,116,144,.10),transparent 30%),
+        linear-gradient(180deg,#05070b 0%,#070b11 48%,#05070b 100%);
+    }
+
+    .grid-overlay{
+      position:fixed;
+      inset:0;
+      z-index:-2;
+      opacity:.5;
+      background-image:
+        linear-gradient(rgba(255,255,255,.025) 1px,transparent 1px),
+        linear-gradient(90deg,rgba(255,255,255,.025) 1px,transparent 1px);
+      background-size:54px 54px;
+      mask-image:linear-gradient(to bottom,black,transparent 80%);
+    }
+
+    .noise{
+      position:fixed;
+      inset:0;
+      z-index:-1;
+      pointer-events:none;
+      opacity:.035;
+      background-image:url("data:image/svg+xml,%3Csvg viewBox='0 0 180 180' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='.7'/%3E%3C/svg%3E");
+    }
+
+    .glass{
+      background:rgba(11,16,24,.78);
+      backdrop-filter:blur(18px);
+      border:1px solid var(--line);
+    }
+
+    .nav-link{position:relative}
+    .nav-link:after{
+      content:"";
+      position:absolute;
+      left:0;
+      bottom:-7px;
+      width:0;
+      height:1px;
+      background:var(--cyan);
+      transition:.25s ease;
+    }
+    .nav-link:hover:after{width:100%}
+
+    .primary-btn{
+      display:inline-flex;
+      align-items:center;
+      justify-content:center;
+      gap:.6rem;
+      background:#f8fafc;
+      color:#071018;
+      border:1px solid #f8fafc;
+      transition:.3s ease;
+      box-shadow:0 12px 40px rgba(255,255,255,.08);
+    }
+    .primary-btn:hover{
+      transform:translateY(-3px);
+      background:var(--cyan);
+      border-color:var(--cyan);
+      box-shadow:0 16px 45px rgba(34,211,238,.18);
+    }
+
+    .secondary-btn{
+      display:inline-flex;
+      align-items:center;
+      justify-content:center;
+      gap:.6rem;
+      border:1px solid rgba(255,255,255,.15);
+      color:#e2e8f0;
+      background:rgba(255,255,255,.025);
+      transition:.3s ease;
+    }
+    .secondary-btn:hover{
+      transform:translateY(-3px);
+      border-color:rgba(103,232,249,.65);
+      color:var(--cyan);
+      background:rgba(34,211,238,.05);
+    }
+
+    .eyebrow{
+      color:var(--cyan);
+      letter-spacing:.22em;
+      text-transform:uppercase;
+      font-size:.75rem;
+      font-weight:700;
+    }
+
+    .gradient-text{
+      background:linear-gradient(90deg,#f8fafc 5%,#67e8f9 52%,#cbd5e1 100%);
+      -webkit-background-clip:text;
+      -webkit-text-fill-color:transparent;
+      background-clip:text;
+    }
+
+    .service-card,.process-card,.price-card{
+      position:relative;
+      overflow:hidden;
+      transition:.35s ease;
+    }
+    .service-card:before,.price-card:before{
+      content:"";
+      position:absolute;
+      inset:0;
+      background:linear-gradient(135deg,rgba(34,211,238,.07),transparent 38%);
+      opacity:0;
+      transition:.35s ease;
+    }
+    .service-card:hover,.price-card:hover{
+      transform:translateY(-7px);
+      border-color:rgba(103,232,249,.35);
+    }
+    .service-card:hover:before,.price-card:hover:before{opacity:1}
+
+    .icon-box{
+      width:48px;
+      height:48px;
+      border-radius:14px;
+      display:grid;
+      place-items:center;
+      color:var(--cyan);
+      background:rgba(34,211,238,.08);
+      border:1px solid rgba(34,211,238,.15);
+    }
+
+    .check{
+      width:20px;
+      height:20px;
+      min-width:20px;
+      border-radius:999px;
+      display:grid;
+      place-items:center;
+      background:rgba(134,239,172,.09);
+      border:1px solid rgba(134,239,172,.22);
+      color:var(--green);
+      font-size:.72rem;
+      margin-top:.15rem;
+    }
+
+    .hero-orbit{
+      position:absolute;
+      width:520px;
+      height:520px;
+      border-radius:999px;
+      border:1px solid rgba(103,232,249,.10);
+      animation:spin 24s linear infinite;
+    }
+    .hero-orbit:after{
+      content:"";
+      position:absolute;
+      width:10px;
+      height:10px;
+      border-radius:999px;
+      background:var(--cyan);
+      top:73px;
+      right:75px;
+      box-shadow:0 0 25px rgba(103,232,249,.8);
+    }
+    @keyframes spin{to{transform:rotate(360deg)}}
+
+    .scan-line{
+      position:absolute;
+      left:0;
+      right:0;
+      height:1px;
+      background:linear-gradient(90deg,transparent,var(--cyan),transparent);
+      opacity:.35;
+      animation:scan 5s ease-in-out infinite;
+    }
+    @keyframes scan{
+      0%,100%{top:12%;opacity:0}
+      15%{opacity:.35}
+      85%{opacity:.35}
+      100%{top:88%;opacity:0}
+    }
+
+    .fade-up{
+      opacity:0;
+      transform:translateY(24px);
+      transition:opacity .75s ease,transform .75s ease;
+    }
+    .fade-up.visible{opacity:1;transform:translateY(0)}
+
+    .faq-answer{
+      max-height:0;
+      overflow:hidden;
+      transition:max-height .35s ease;
+    }
+    .faq-item.active .faq-answer{max-height:260px}
+    .faq-item.active .faq-plus{transform:rotate(45deg);color:var(--cyan)}
+    .faq-plus{transition:.25s ease}
+
+    input,select,textarea{color-scheme:dark}
+    select option{background:#0b1018}
+
+    @media (max-width:768px){
+      .hero-orbit{width:360px;height:360px}
+    }
+  </style>
+</head>
+
+<body>
+  <div class="site-bg"></div>
+  <div class="grid-overlay"></div>
+  <div class="noise"></div>
+
+  <!-- NAVBAR -->
+  <header class="fixed top-0 w-full z-50 border-b border-white/5 bg-[#05070b]/80 backdrop-blur-xl">
+    <div class="max-w-7xl mx-auto px-6 py-4 flex items-center justify-between">
+      <a href="#top" class="brand text-xl md:text-2xl font-bold tracking-tight">
+        NoirPeak<span class="text-cyan-300">.</span>
+        <span class="hidden sm:inline text-slate-500 font-medium text-sm ml-2">Compliance Systems</span>
+      </a>
+
+      <nav class="hidden lg:flex gap-8 text-sm text-slate-400 font-medium">
+        <a class="nav-link hover:text-white transition" href="#services">Services</a>
+        <a class="nav-link hover:text-white transition" href="#proof">Client Proof</a>
+        <a class="nav-link hover:text-white transition" href="#process">Process</a>
+        <a class="nav-link hover:text-white transition" href="#pricing">Pricing</a>
+        <a class="nav-link hover:text-white transition" href="#faq">FAQ</a>
+      </nav>
+
+      <a href="#audit" class="primary-btn px-5 py-3 rounded-xl text-sm font-bold">
+        Get an A2P Audit
+        <span aria-hidden="true">↗</span>
+      </a>
+    </div>
+  </header>
+
+  <main id="top">
+    <!-- HERO -->
+    <section class="min-h-screen flex items-center px-6 pt-28 pb-16">
+      <div class="max-w-7xl mx-auto w-full grid lg:grid-cols-[1.08fr_.92fr] gap-16 items-center">
+        <div class="fade-up">
+          <div class="inline-flex items-center gap-3 px-4 py-2 rounded-full border border-cyan-300/15 bg-cyan-300/5 text-sm text-slate-300 mb-8">
+            <span class="w-2 h-2 rounded-full bg-cyan-300 shadow-[0_0_14px_rgba(103,232,249,.8)]"></span>
+            Independent A2P readiness & SMS compliance consulting
+          </div>
+
+          <h1 class="text-5xl sm:text-6xl xl:text-7xl font-bold leading-[1.02] tracking-[-.045em] mb-8">
+            SMS compliance.<br>
+            A2P readiness.<br>
+            <span class="gradient-text">Built right.</span>
+          </h1>
+
+          <p class="text-slate-400 text-lg md:text-xl leading-relaxed max-w-2xl mb-10">
+            NoirPeak helps businesses and agencies identify website, opt-in, consent, and messaging gaps before A2P campaign submission.
+          </p>
+
+          <div class="flex flex-col sm:flex-row gap-4 mb-10">
+            <a href="#audit" class="primary-btn px-7 py-4 rounded-xl font-bold">
+              Get Your A2P Audit <span>↗</span>
+            </a>
+            <a href="#services" class="secondary-btn px-7 py-4 rounded-xl font-semibold">
+              Explore Services
+            </a>
+          </div>
+
+          <div class="flex flex-wrap gap-x-7 gap-y-3 text-sm text-slate-500">
+            <span>✓ Consent flow review</span>
+            <span>✓ Website alignment</span>
+            <span>✓ Campaign content review</span>
+          </div>
+        </div>
+
+        <!-- READINESS CONSOLE -->
+        <div class="relative min-h-[560px] flex items-center justify-center fade-up">
+          <div class="hero-orbit"></div>
+
+          <div class="relative glass w-full max-w-lg rounded-[28px] p-5 md:p-7 shadow-2xl">
+            <div class="scan-line"></div>
+
+            <div class="flex items-center justify-between pb-5 border-b border-white/5">
+              <div>
+                <p class="eyebrow mb-2">Readiness Console</p>
+                <h2 class="text-xl font-bold">Messaging Journey Review</h2>
+              </div>
+              <div class="w-11 h-11 rounded-full border border-cyan-300/20 bg-cyan-300/5 grid place-items-center text-cyan-300">◎</div>
+            </div>
+
+            <div class="space-y-3 py-5">
+              <div class="flex items-center justify-between p-4 rounded-2xl bg-white/[.025] border border-white/5">
+                <div class="flex items-center gap-3">
+                  <span class="check">✓</span>
+                  <span class="text-slate-300">Website & business identity</span>
+                </div>
+                <span class="text-xs text-green-300">REVIEWED</span>
+              </div>
+
+              <div class="flex items-center justify-between p-4 rounded-2xl bg-white/[.025] border border-white/5">
+                <div class="flex items-center gap-3">
+                  <span class="check">✓</span>
+                  <span class="text-slate-300">Opt-in & consent language</span>
+                </div>
+                <span class="text-xs text-green-300">ALIGNED</span>
+              </div>
+
+              <div class="flex items-center justify-between p-4 rounded-2xl bg-white/[.025] border border-white/5">
+                <div class="flex items-center gap-3">
+                  <span class="check">✓</span>
+                  <span class="text-slate-300">SMS disclosures</span>
+                </div>
+                <span class="text-xs text-green-300">CHECKED</span>
+              </div>
+
+              <div class="flex items-center justify-between p-4 rounded-2xl bg-cyan-300/[.04] border border-cyan-300/15">
+                <div class="flex items-center gap-3">
+                  <span class="w-5 h-5 rounded-full border border-cyan-300/30 grid place-items-center text-cyan-300 text-[10px]">●</span>
+                  <span class="text-slate-200">Campaign content</span>
+                </div>
+                <span class="text-xs text-cyan-300">IN REVIEW</span>
+              </div>
+            </div>
+
+            <div class="rounded-2xl border border-white/5 bg-black/20 p-5">
+              <div class="flex justify-between text-sm mb-3">
+                <span class="text-slate-400">Readiness review</span>
+                <span class="text-cyan-300">Pre-submission</span>
+              </div>
+              <div class="h-2 rounded-full bg-slate-800 overflow-hidden">
+                <div class="h-full w-[82%] bg-gradient-to-r from-cyan-500 to-cyan-200 rounded-full"></div>
+              </div>
+              <p class="text-xs text-slate-500 mt-4 leading-relaxed">
+                A structured review helps surface inconsistencies before submission. It does not guarantee registration or carrier approval.
+              </p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- TRUST STRIP -->
+    <section class="border-y border-white/5 bg-white/[.015]">
+      <div class="max-w-7xl mx-auto px-6 py-7 grid sm:grid-cols-2 lg:grid-cols-4 gap-6 text-center">
+        <div><p class="text-slate-500 text-xs uppercase tracking-widest mb-2">Review</p><p class="font-semibold">Website & CTA</p></div>
+        <div><p class="text-slate-500 text-xs uppercase tracking-widest mb-2">Align</p><p class="font-semibold">Consent & Opt-In</p></div>
+        <div><p class="text-slate-500 text-xs uppercase tracking-widest mb-2">Check</p><p class="font-semibold">Messaging Content</p></div>
+        <div><p class="text-slate-500 text-xs uppercase tracking-widest mb-2">Prepare</p><p class="font-semibold">Pre-Submission Readiness</p></div>
+      </div>
+    </section>
+
+    <!-- PROBLEM -->
+    <section class="py-28 px-6">
+      <div class="max-w-6xl mx-auto grid lg:grid-cols-2 gap-16 items-start">
+        <div class="fade-up">
+          <p class="eyebrow mb-5">The real problem</p>
+          <h2 class="text-4xl md:text-6xl font-bold tracking-tight leading-[1.05]">
+            Your A2P campaign is more than a form.
+          </h2>
+        </div>
+
+        <div class="fade-up">
+          <p class="text-slate-400 text-lg leading-relaxed mb-7">
+            Your website, opt-in process, consent language, privacy disclosures, campaign description, and sample messages should tell one consistent story.
+          </p>
+          <p class="text-slate-400 text-lg leading-relaxed mb-8">
+            NoirPeak reviews the customer messaging journey to identify mismatches, unclear consent flows, and documentation gaps before submission.
+          </p>
+          <div class="glass rounded-2xl p-6 border-l-2 border-l-cyan-300">
+            <p class="text-slate-300 leading-relaxed">
+              <span class="text-white font-semibold">The goal:</span> clearer consent, stronger documentation, and a better-prepared campaign.
+            </p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- SERVICES -->
+    <section id="services" class="py-28 px-6">
+      <div class="max-w-7xl mx-auto">
+        <div class="max-w-3xl mb-16 fade-up">
+          <p class="eyebrow mb-5">Services</p>
+          <h2 class="text-4xl md:text-6xl font-bold tracking-tight mb-6">Focused on the gaps that matter.</h2>
+          <p class="text-slate-400 text-lg">Specialized reviews and corrections for business messaging readiness.</p>
+        </div>
+
+        <div class="grid md:grid-cols-2 gap-6">
+          <article class="service-card glass rounded-[28px] p-8 md:p-10 fade-up">
+            <div class="icon-box mb-8">01</div>
+            <h3 class="text-2xl md:text-3xl font-bold mb-4">A2P Readiness Audit</h3>
+            <p class="text-slate-400 leading-relaxed mb-7">A structured review of the visible customer journey and campaign-facing content before submission.</p>
+            <ul class="space-y-3 text-sm text-slate-300">
+              <li class="flex gap-3"><span class="check">✓</span>Website and business identity review</li>
+              <li class="flex gap-3"><span class="check">✓</span>CTA and opt-in flow review</li>
+              <li class="flex gap-3"><span class="check">✓</span>SMS disclosure gap check</li>
+              <li class="flex gap-3"><span class="check">✓</span>Privacy and terms alignment review</li>
+              <li class="flex gap-3"><span class="check">✓</span>Structured correction report</li>
+            </ul>
+          </article>
+
+          <article class="service-card glass rounded-[28px] p-8 md:p-10 fade-up">
+            <div class="icon-box mb-8">02</div>
+            <h3 class="text-2xl md:text-3xl font-bold mb-4">SMS Opt-In Compliance Fix</h3>
+            <p class="text-slate-400 leading-relaxed mb-7">Practical corrections for consent language and the website elements supporting your messaging flow.</p>
+            <ul class="space-y-3 text-sm text-slate-300">
+              <li class="flex gap-3"><span class="check">✓</span>Consent language correction</li>
+              <li class="flex gap-3"><span class="check">✓</span>Checkbox structure guidance</li>
+              <li class="flex gap-3"><span class="check">✓</span>SMS disclosure correction</li>
+              <li class="flex gap-3"><span class="check">✓</span>CTA flow alignment</li>
+              <li class="flex gap-3"><span class="check">✓</span>Website messaging consistency</li>
+            </ul>
+          </article>
+
+          <article class="service-card glass rounded-[28px] p-8 md:p-10 fade-up">
+            <div class="icon-box mb-8">03</div>
+            <h3 class="text-2xl md:text-3xl font-bold mb-4">Campaign Content Review</h3>
+            <p class="text-slate-400 leading-relaxed mb-7">A detailed consistency review of the content used to describe your campaign and messaging journey.</p>
+            <ul class="space-y-3 text-sm text-slate-300">
+              <li class="flex gap-3"><span class="check">✓</span>Campaign description review</li>
+              <li class="flex gap-3"><span class="check">✓</span>Opt-in explanation review</li>
+              <li class="flex gap-3"><span class="check">✓</span>Sample message review</li>
+              <li class="flex gap-3"><span class="check">✓</span>HELP and STOP language check</li>
+              <li class="flex gap-3"><span class="check">✓</span>Website-to-campaign alignment</li>
+            </ul>
+          </article>
+
+          <article class="service-card glass rounded-[28px] p-8 md:p-10 fade-up">
+            <div class="icon-box mb-8">04</div>
+            <h3 class="text-2xl md:text-3xl font-bold mb-4">Full A2P Readiness Setup</h3>
+            <p class="text-slate-400 leading-relaxed mb-7">End-to-end readiness support for businesses that want the full customer messaging journey reviewed and corrected.</p>
+            <ul class="space-y-3 text-sm text-slate-300">
+              <li class="flex gap-3"><span class="check">✓</span>Website compliance audit</li>
+              <li class="flex gap-3"><span class="check">✓</span>Opt-in and form correction</li>
+              <li class="flex gap-3"><span class="check">✓</span>Privacy and terms alignment</li>
+              <li class="flex gap-3"><span class="check">✓</span>Campaign content review</li>
+              <li class="flex gap-3"><span class="check">✓</span>CRM/SMS flow assistance</li>
+            </ul>
+          </article>
+        </div>
+      </div>
+    </section>
+
+
+    <!-- CLIENT PROOF -->
+    <section id="proof" class="py-28 px-6">
+      <div class="max-w-7xl mx-auto">
+        <div class="max-w-3xl mb-16 fade-up">
+          <p class="eyebrow mb-5">Client proof</p>
+          <h2 class="text-4xl md:text-6xl font-bold tracking-tight mb-6">Real work. Real client outcomes.</h2>
+          <p class="text-slate-400 text-lg leading-relaxed">
+            A few examples of businesses I've supported through A2P readiness, campaign setup, and messaging configuration.
+          </p>
+        </div>
+
+        <div class="grid lg:grid-cols-3 gap-6">
+          <article class="service-card glass rounded-[28px] p-8 md:p-9 fade-up">
+            <div class="flex items-center justify-between gap-4 mb-8">
+              <div>
+                <p class="text-xs text-cyan-300 uppercase tracking-[.18em] font-bold mb-2">Client testimonial</p>
+                <h3 class="text-xl font-bold">Palm Estate</h3>
+              </div>
+              <div class="icon-box">“</div>
+            </div>
+
+            <blockquote class="text-slate-300 leading-relaxed text-[15px] mb-8">
+              “Just got my A2P 10DLC approved on the first try, and I have to give credit where it's due. Had Rocky walk me through every step of the process, brand registration, campaign setup, messaging service config, all of it. Clear guidance, real expertise. If you're trying to figure out A2P on your own, don't. Get help from someone who knows what they're doing. Saved me weeks of headaches.”
+            </blockquote>
+
+            <div class="pt-6 border-t border-white/5">
+              <p class="font-semibold">Elior Bar Shalom</p>
+              <p class="text-sm text-slate-500 mt-1">Palm Estate</p>
+            </div>
+          </article>
+
+          <article class="service-card glass rounded-[28px] p-8 md:p-9 fade-up">
+            <div class="flex items-center justify-between gap-4 mb-8">
+              <div>
+                <p class="text-xs text-cyan-300 uppercase tracking-[.18em] font-bold mb-2">Client outcome</p>
+                <h3 class="text-xl font-bold">Indiboots</h3>
+              </div>
+              <div class="icon-box">✓</div>
+            </div>
+
+            <div class="rounded-2xl bg-cyan-300/[.04] border border-cyan-300/15 p-6 mb-7">
+              <p class="text-3xl font-bold text-white mb-2">Verified</p>
+              <p class="text-sm text-slate-400">Campaign status shared by the client after support.</p>
+            </div>
+
+            <p class="text-slate-400 leading-relaxed text-[15px] mb-8">
+              Supported the client through their A2P campaign readiness journey. The client later shared confirmation that the campaign status was verified.
+            </p>
+
+            <div class="pt-6 border-t border-white/5">
+              <p class="font-semibold">Indiboots</p>
+              <p class="text-sm text-slate-500 mt-1">A2P campaign support</p>
+            </div>
+          </article>
+
+          <article class="service-card glass rounded-[28px] p-8 md:p-9 fade-up">
+            <div class="flex items-center justify-between gap-4 mb-8">
+              <div>
+                <p class="text-xs text-cyan-300 uppercase tracking-[.18em] font-bold mb-2">Client feedback</p>
+                <h3 class="text-xl font-bold">ATD Equity</h3>
+              </div>
+              <div class="icon-box">↗</div>
+            </div>
+
+            <div class="rounded-2xl bg-cyan-300/[.04] border border-cyan-300/15 p-6 mb-7">
+              <p class="text-xl font-semibold text-white leading-relaxed">“Hey, it got approved :)”</p>
+              <p class="text-sm text-slate-500 mt-3">Client message after support</p>
+            </div>
+
+            <p class="text-slate-400 leading-relaxed text-[15px] mb-8">
+              Assisted with the client's A2P readiness process. After the work, the client confirmed approval and followed up with a direct thank-you for the help.
+            </p>
+
+            <div class="pt-6 border-t border-white/5">
+              <p class="font-semibold">ATD Equity</p>
+              <p class="text-sm text-slate-500 mt-1">A2P readiness support</p>
+            </div>
+          </article>
+        </div>
+
+        <div class="glass rounded-2xl p-5 md:p-6 mt-6 fade-up">
+          <p class="text-xs text-slate-500 leading-relaxed">
+            Client outcomes are individual examples and do not guarantee future approval or registration results. Third-party review and approval decisions remain outside NoirPeak's control.
+          </p>
+        </div>
+      </div>
+    </section>
+
+    <!-- PROCESS -->
+    <section id="process" class="py-28 px-6">
+      <div class="max-w-7xl mx-auto">
+        <div class="text-center max-w-3xl mx-auto mb-16 fade-up">
+          <p class="eyebrow mb-5">Process</p>
+          <h2 class="text-4xl md:text-6xl font-bold tracking-tight mb-6">Audit. Correct. Align. Prepare.</h2>
+          <p class="text-slate-400 text-lg">No vague agency fog. A focused four-step readiness process.</p>
+        </div>
+
+        <div class="grid md:grid-cols-2 lg:grid-cols-4 gap-5">
+          <div class="process-card glass rounded-3xl p-7 fade-up">
+            <p class="text-cyan-300 text-sm font-bold mb-10">01 / REVIEW</p>
+            <h3 class="text-xl font-bold mb-3">Map the journey</h3>
+            <p class="text-slate-400 text-sm leading-relaxed">Review the website, CTA, forms, consent language, and campaign-facing content.</p>
+          </div>
+          <div class="process-card glass rounded-3xl p-7 fade-up">
+            <p class="text-cyan-300 text-sm font-bold mb-10">02 / IDENTIFY</p>
+            <h3 class="text-xl font-bold mb-3">Find the gaps</h3>
+            <p class="text-slate-400 text-sm leading-relaxed">Flag inconsistencies, unclear disclosures, and weak alignment across the messaging flow.</p>
+          </div>
+          <div class="process-card glass rounded-3xl p-7 fade-up">
+            <p class="text-cyan-300 text-sm font-bold mb-10">03 / CORRECT</p>
+            <h3 class="text-xl font-bold mb-3">Fix the weak links</h3>
+            <p class="text-slate-400 text-sm leading-relaxed">Provide corrections or hands-on support based on the selected service package.</p>
+          </div>
+          <div class="process-card glass rounded-3xl p-7 fade-up">
+            <p class="text-cyan-300 text-sm font-bold mb-10">04 / PREPARE</p>
+            <h3 class="text-xl font-bold mb-3">Final readiness check</h3>
+            <p class="text-slate-400 text-sm leading-relaxed">Recheck alignment before the business moves forward with its submission.</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- PRICING -->
+    <section id="pricing" class="py-28 px-6">
+      <div class="max-w-7xl mx-auto">
+        <div class="max-w-3xl mb-16 fade-up">
+          <p class="eyebrow mb-5">Pricing</p>
+          <h2 class="text-4xl md:text-6xl font-bold tracking-tight mb-6">Start with the problem you need solved.</h2>
+          <p class="text-slate-400 text-lg">Clear starting prices. Scope is confirmed before work begins.</p>
+        </div>
+
+        <div class="grid md:grid-cols-2 lg:grid-cols-4 gap-5">
+          <div class="price-card glass rounded-3xl p-7 fade-up">
+            <p class="text-sm text-slate-500 mb-5">READINESS AUDIT</p>
+            <p class="text-4xl font-bold mb-2">$49</p>
+            <p class="text-xs text-slate-500 mb-7">Starting price</p>
+            <p class="text-slate-400 text-sm leading-relaxed mb-8">For businesses that want a structured gap report before making changes.</p>
+            <a href="#audit" class="secondary-btn w-full py-3 rounded-xl text-sm font-semibold">Request Audit</a>
+          </div>
+
+          <div class="price-card glass rounded-3xl p-7 fade-up">
+            <p class="text-sm text-slate-500 mb-5">OPT-IN FIX</p>
+            <p class="text-4xl font-bold mb-2">$99</p>
+            <p class="text-xs text-slate-500 mb-7">Starting price</p>
+            <p class="text-slate-400 text-sm leading-relaxed mb-8">For consent, checkbox, disclosure, and website messaging corrections.</p>
+            <a href="#audit" class="secondary-btn w-full py-3 rounded-xl text-sm font-semibold">Fix My Flow</a>
+          </div>
+
+          <div class="price-card glass rounded-3xl p-7 fade-up">
+            <p class="text-sm text-slate-500 mb-5">CONTENT REVIEW</p>
+            <p class="text-4xl font-bold mb-2">$149</p>
+            <p class="text-xs text-slate-500 mb-7">Starting price</p>
+            <p class="text-slate-400 text-sm leading-relaxed mb-8">For campaign descriptions, opt-in explanations, and sample messaging review.</p>
+            <a href="#audit" class="secondary-btn w-full py-3 rounded-xl text-sm font-semibold">Review Content</a>
+          </div>
+
+          <div class="price-card rounded-3xl p-7 fade-up border border-cyan-300/30 bg-cyan-300/[.055] relative overflow-hidden">
+            <div class="absolute top-0 right-0 px-4 py-2 bg-cyan-300 text-slate-950 text-[10px] font-black tracking-widest">FLAGSHIP</div>
+            <p class="text-sm text-cyan-300 mb-5">FULL READINESS SETUP</p>
+            <p class="text-4xl font-bold mb-2">$299</p>
+            <p class="text-xs text-slate-500 mb-7">Starting price</p>
+            <p class="text-slate-300 text-sm leading-relaxed mb-8">End-to-end review and correction support across the customer messaging journey.</p>
+            <a href="#audit" class="primary-btn w-full py-3 rounded-xl text-sm font-bold">Start Full Review</a>
+          </div>
+        </div>
+
+        <p class="text-xs text-slate-600 mt-6">
+          Prices shown are starting prices and may vary by scope, website complexity, and required implementation work.
+        </p>
+      </div>
+    </section>
+
+    <!-- ABOUT / POSITIONING -->
+    <section class="py-28 px-6">
+      <div class="max-w-6xl mx-auto glass rounded-[32px] p-8 md:p-14 lg:p-16 grid lg:grid-cols-[.8fr_1.2fr] gap-12 items-center fade-up">
+        <div>
+          <p class="eyebrow mb-5">Why NoirPeak</p>
+          <h2 class="text-4xl md:text-5xl font-bold tracking-tight">Built around messaging readiness.</h2>
+        </div>
+        <div>
+          <p class="text-slate-400 text-lg leading-relaxed mb-6">
+            NoirPeak is an independent compliance consulting service focused on the practical connection between websites, consent flows, campaign content, and business messaging.
+          </p>
+          <p class="text-slate-400 leading-relaxed">
+            The work is designed to help businesses spot visible gaps and prepare stronger, more consistent submission materials. NoirPeak is not affiliated with, endorsed by, or acting on behalf of any carrier, registry, messaging platform, or employer.
+          </p>
+        </div>
+      </div>
+    </section>
+
+    <!-- FAQ -->
+    <section id="faq" class="py-28 px-6">
+      <div class="max-w-4xl mx-auto">
+        <div class="text-center mb-14 fade-up">
+          <p class="eyebrow mb-5">FAQ</p>
+          <h2 class="text-4xl md:text-6xl font-bold tracking-tight">Straight answers.</h2>
+        </div>
+
+        <div class="space-y-4">
+          <div class="faq-item glass rounded-2xl px-6 md:px-8 fade-up">
+            <button type="button" class="faq-toggle w-full py-6 flex justify-between gap-6 text-left">
+              <span class="font-semibold">Do you guarantee A2P campaign approval?</span>
+              <span class="faq-plus text-2xl text-slate-500">+</span>
+            </button>
+            <div class="faq-answer">
+              <p class="text-slate-400 leading-relaxed pb-7">No. NoirPeak provides independent readiness reviews and correction support. Registration, vetting, carrier, and platform decisions remain with the relevant third parties.</p>
+            </div>
+          </div>
+
+          <div class="faq-item glass rounded-2xl px-6 md:px-8 fade-up">
+            <button type="button" class="faq-toggle w-full py-6 flex justify-between gap-6 text-left">
+              <span class="font-semibold">Can you review my website before I submit?</span>
+              <span class="faq-plus text-2xl text-slate-500">+</span>
+            </button>
+            <div class="faq-answer">
+              <p class="text-slate-400 leading-relaxed pb-7">Yes. The readiness audit is designed to review the visible website, CTA, opt-in flow, disclosures, and campaign-facing content for alignment gaps.</p>
+            </div>
+          </div>
+
+          <div class="faq-item glass rounded-2xl px-6 md:px-8 fade-up">
+            <button type="button" class="faq-toggle w-full py-6 flex justify-between gap-6 text-left">
+              <span class="font-semibold">Do you work with agencies and CRM users?</span>
+              <span class="faq-plus text-2xl text-slate-500">+</span>
+            </button>
+            <div class="faq-answer">
+              <p class="text-slate-400 leading-relaxed pb-7">Yes. NoirPeak can review client-facing messaging journeys and help align website and opt-in content with the campaign information being prepared.</p>
+            </div>
+          </div>
+
+          <div class="faq-item glass rounded-2xl px-6 md:px-8 fade-up">
+            <button type="button" class="faq-toggle w-full py-6 flex justify-between gap-6 text-left">
+              <span class="font-semibold">Is this legal advice?</span>
+              <span class="faq-plus text-2xl text-slate-500">+</span>
+            </button>
+            <div class="faq-answer">
+              <p class="text-slate-400 leading-relaxed pb-7">No. NoirPeak provides operational and readiness consulting, not legal advice. Businesses should consult qualified legal counsel for legal interpretations or obligations specific to their circumstances.</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- AUDIT FORM -->
+    <section id="audit" class="py-28 px-6">
+      <div class="max-w-6xl mx-auto grid lg:grid-cols-[.8fr_1.2fr] gap-10 items-start">
+        <div class="fade-up lg:sticky lg:top-28">
+          <p class="eyebrow mb-5">Request a review</p>
+          <h2 class="text-4xl md:text-6xl font-bold tracking-tight mb-6">Let's find the weak links.</h2>
+          <p class="text-slate-400 text-lg leading-relaxed mb-8">
+            Share your website and current campaign stage. NoirPeak will review the request and reply with the most suitable starting point.
+          </p>
+
+          <div class="space-y-4 text-sm text-slate-400">
+            <p class="flex gap-3"><span class="check">✓</span>No approval guarantees</p>
+            <p class="flex gap-3"><span class="check">✓</span>No platform affiliation claims</p>
+            <p class="flex gap-3"><span class="check">✓</span>Focused readiness review</p>
+          </div>
+        </div>
+
+        <div class="glass rounded-[30px] p-7 md:p-10 fade-up">
+          <form name="a2p-audit" method="POST" data-netlify="true" netlify-honeypot="bot-field" class="space-y-5">
+            <input type="hidden" name="form-name" value="a2p-audit">
+
+            <p class="hidden">
+              <label>Don't fill this out: <input name="bot-field"></label>
+            </p>
+
+            <div class="grid md:grid-cols-2 gap-5">
+              <div>
+                <label class="block text-sm text-slate-400 mb-2" for="name">Name</label>
+                <input id="name" type="text" name="name" required placeholder="Your name"
+                  class="w-full bg-black/20 border border-white/10 focus:border-cyan-300/50 focus:ring-2 focus:ring-cyan-300/10 outline-none transition rounded-xl px-5 py-4 placeholder:text-slate-600">
+              </div>
+              <div>
+                <label class="block text-sm text-slate-400 mb-2" for="email">Business email</label>
+                <input id="email" type="email" name="email" required placeholder="you@company.com"
+                  class="w-full bg-black/20 border border-white/10 focus:border-cyan-300/50 focus:ring-2 focus:ring-cyan-300/10 outline-none transition rounded-xl px-5 py-4 placeholder:text-slate-600">
+              </div>
+            </div>
+
+            <div>
+              <label class="block text-sm text-slate-400 mb-2" for="website">Website URL</label>
+              <input id="website" type="url" name="website" required placeholder="https://yourwebsite.com"
+                class="w-full bg-black/20 border border-white/10 focus:border-cyan-300/50 focus:ring-2 focus:ring-cyan-300/10 outline-none transition rounded-xl px-5 py-4 placeholder:text-slate-600">
+            </div>
+
+            <div class="grid md:grid-cols-2 gap-5">
+              <div>
+                <label class="block text-sm text-slate-400 mb-2" for="service">Service needed</label>
+                <select id="service" name="service" required
+                  class="w-full bg-black/20 border border-white/10 focus:border-cyan-300/50 outline-none transition rounded-xl px-5 py-4">
+                  <option value="">Select a service</option>
+                  <option>A2P Readiness Audit</option>
+                  <option>SMS Opt-In Compliance Fix</option>
+                  <option>Campaign Content Review</option>
+                  <option>Full A2P Readiness Setup</option>
+                  <option>Not sure yet</option>
+                </select>
+              </div>
+
+              <div>
+                <label class="block text-sm text-slate-400 mb-2" for="stage">Current stage</label>
+                <select id="stage" name="stage" required
+                  class="w-full bg-black/20 border border-white/10 focus:border-cyan-300/50 outline-none transition rounded-xl px-5 py-4">
+                  <option value="">Select your stage</option>
+                  <option>Preparing first submission</option>
+                  <option>Reviewing website and opt-in</option>
+                  <option>Previously rejected / needs review</option>
+                  <option>Agency reviewing a client flow</option>
+                  <option>Other</option>
+                </select>
+              </div>
+            </div>
+
+            <div>
+              <label class="block text-sm text-slate-400 mb-2" for="details">What are you trying to fix?</label>
+              <textarea id="details" name="details" rows="6" required placeholder="Tell me about your messaging use case, opt-in flow, and the issue you're facing..."
+                class="w-full bg-black/20 border border-white/10 focus:border-cyan-300/50 focus:ring-2 focus:ring-cyan-300/10 outline-none transition rounded-xl px-5 py-4 placeholder:text-slate-600 resize-none"></textarea>
+            </div>
+
+            <label class="flex gap-3 text-xs text-slate-500 leading-relaxed">
+              <input type="checkbox" name="acknowledgement" required class="mt-1 accent-cyan-300">
+              <span>I understand NoirPeak provides independent readiness consulting and does not guarantee campaign approval or provide legal advice.</span>
+            </label>
+
+            <button type="submit" class="primary-btn w-full rounded-xl py-4 text-base font-bold">
+              Request My Review <span>↗</span>
+            </button>
+          </form>
+
+          <div class="grid sm:grid-cols-2 gap-4 mt-5">
+            <a href="https://wa.me/918013090038" target="_blank" rel="noopener noreferrer"
+              class="secondary-btn rounded-xl py-4 text-sm font-semibold">WhatsApp</a>
+            <a href="mailto:noirpeakdigital@gmail.com"
+              class="secondary-btn rounded-xl py-4 text-sm font-semibold">Email Directly</a>
+          </div>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <!-- FOOTER -->
+  <footer class="border-t border-white/5 px-6 py-10">
+    <div class="max-w-7xl mx-auto flex flex-col md:flex-row gap-6 items-start md:items-center justify-between">
+      <div>
+        <p class="brand text-xl font-bold">NoirPeak<span class="text-cyan-300">.</span></p>
+        <p class="text-slate-600 text-xs mt-2">Independent A2P readiness & SMS compliance consulting.</p>
+      </div>
+
+      <div class="text-xs text-slate-600 md:text-right max-w-2xl leading-relaxed">
+        <p>© 2026 NoirPeak Compliance Systems. All rights reserved.</p>
+        <p class="mt-2">NoirPeak is an independent consulting service and is not affiliated with or endorsed by any carrier, registry, messaging platform, or employer. Approval is not guaranteed. Services do not constitute legal advice.</p>
+      </div>
+    </div>
+  </footer>
+
+  <script>
+    // Reveal animations
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach((entry) => {
+        if (entry.isIntersecting) {
+          entry.target.classList.add('visible');
+          observer.unobserve(entry.target);
+        }
+      });
+    }, { threshold: 0.12 });
+
+    document.querySelectorAll('.fade-up').forEach((el) => observer.observe(el));
+
+    // FAQ accordion
+    document.querySelectorAll('.faq-toggle').forEach((button) => {
+      button.addEventListener('click', () => {
+        const item = button.closest('.faq-item');
+        const wasActive = item.classList.contains('active');
+
+        document.querySelectorAll('.faq-item').forEach((faq) => faq.classList.remove('active'));
+        if (!wasActive) item.classList.add('active');
+      });
+    });
+  </script>
+</body>
+</html>
